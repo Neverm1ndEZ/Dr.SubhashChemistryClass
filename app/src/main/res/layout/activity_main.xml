@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
+<!--    Internet Layout-->
+
+    <RelativeLayout
+        android:id="@+id/InternetLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </WebView>
+
+    <ProgressBar
+        android:id="@+id/pgBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+<!--    No Internet Layout-->
+
+    <RelativeLayout
+        android:id="@+id/noInternetLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/no_internet_image"
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/no_internet"
+                android:contentDescription="null"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tryAgainButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/no_internet_image"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/black"
+                android:text="Try Again"
+                android:paddingHorizontal="32dp"
+                android:textAllCaps="false"
+                app:cornerRadius="16dp" />
+    </RelativeLayout>
+
+</RelativeLayout>
