@@ -1,4 +1,4 @@
-package com.example.testapp;
+package com.ultracures.testapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
