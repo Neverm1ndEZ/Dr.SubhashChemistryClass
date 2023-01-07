@@ -9,13 +9,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Objects.requireNonNull(getSupportActionBar()).hide();
 
         internetLayout = findViewById(R.id.InternetLayout);
         noInternetLayout = findViewById(R.id.noInternetLayout);
@@ -39,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         webView.loadUrl("https://subhashchemistryclasses.online");
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setDomStorageEnabled(true);
 
-        tryAgainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawLayout();
-            }
+        tryAgainButton.setOnClickListener(view -> {
+            drawLayout();
+            webView.loadUrl("https://subhashchemistryclasses.online");
         });
 
         webView.setWebViewClient(new WebViewClient(){
@@ -61,10 +60,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 noInternetLayout.setVisibility(View.VISIBLE);
                 internetLayout.setVisibility(View.GONE);
+                super.onReceivedError(view, request, error);
             }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                webView.loadUrl(url);
+                return true;
+            }
+
         });
     }
 
